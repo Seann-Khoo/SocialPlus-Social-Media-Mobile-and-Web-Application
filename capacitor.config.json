@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "SocialPlusApp",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

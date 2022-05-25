@@ -1,0 +1,22 @@
+<ion-content>
+  <img style="display: block;margin-right: auto;margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+  <div *ngIf="post_image; else defaultImage">
+    <img style="display: block;margin-left: auto;margin-right: auto;" [src]="post_image" width="400" height="300">
+  </div>
+  <ng-template #defaultImage>
+    <img style="display: block;margin-right: auto;margin-left: auto;" src="../assets/icons/post_image.png" width="400" height="300">
+  </ng-template>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center;margin-top: 20px;">Edit Post Caption</div>
+  <ion-list>
+    <div style="text-align: center;font-size: 20px; color: #707070;">{{post_category}}</div>
+    <br>
+    <ion-item lines="none" class="caption">
+      <ion-input style="color: white;text-align: center;font-size: 17px" value={{post_caption}} type="text" [(ngModel)]="post_caption"></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button class="update" style="text-transform: none;font-size: 20px;" (click)="editPost()" type="submit" expand="block">Edit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

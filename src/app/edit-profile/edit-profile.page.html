@@ -1,0 +1,45 @@
+<ion-content>
+  <img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>
+  <div *ngIf="profileImage; else defaultImage">
+    <ion-avatar style="display: block;margin-right: auto;margin-left: auto; width:150px; height : 150px" (click)="selectImage()">
+      <img id="image" [src]="profileImage">
+    </ion-avatar>
+  </div>
+  <ng-template #defaultImage>
+    <ion-avatar style="display: block;margin-right: auto;margin-left: auto; width:150px; height : 150px" (click)="selectImage()">
+      <img [src]="oldProfileImage">
+    </ion-avatar>
+  </ng-template>
+  </div>
+  <ng-template #otherDevices>
+    <div *ngIf="profileImage; else defaultImage">
+      <ion-avatar style="display: block;margin-right: auto;margin-left: auto; width:150px; height : 150px">
+        <img id="image" [src]="profileImage">
+      </ion-avatar>
+    </div>
+    <ng-template #defaultImage>
+      <ion-avatar style="display: block;margin-right: auto;margin-left: auto; width:150px; height : 150px">
+        <img [src]="oldProfileImage">
+      </ion-avatar>
+    </ng-template>
+  </ng-template>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center;margin-top: 20px;">Edit Profile</div>
+  <br>
+  <ion-list>
+    <ion-item lines="none">
+      <ion-input style="color: white;text-align: center;font-size: 17px;" value={{oldProfileName}} type="text" [(ngModel)]="profileName" (ngModelChange)="profileName = $event.toLocaleLowerCase()"></ion-input>
+    </ion-item>
+    <br><br>
+    <ion-row>
+      <ion-col>
+        <ion-button class="save" style="text-transform: none;font-size: 20px;" (click)="editProfile()" type="submit" expand="block">Save</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

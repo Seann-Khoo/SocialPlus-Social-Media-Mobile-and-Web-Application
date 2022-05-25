@@ -1,0 +1,329 @@
+<!--For Android-->
+<ion-header *ngIf="isAndroid; else othersHeader">
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+    <button slot="end" style="background-color: #FF7A17; margin-right: 10px;">
+      <ion-menu-button> 
+          <img src='../assets/icons/options_icon.png' width="45" height="30"> 
+      </ion-menu-button> 
+    </button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isAndroid; else othersContent">
+  <ion-grid>
+  <ion-col>
+    <ion-card>
+      <div *ngIf="isUser; else default">
+        <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src={{posts.profile_image}}/>
+            </ion-avatar>
+            <ion-label>
+              <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+              <ion-row>
+              <p style="color: #707070;">{{timePosted | date: "dd/MM/yyyy"}}</p>
+              <p style="color: black;">&nbsp;•&nbsp;</p>
+              <p style="color: #FF7A17;" (click)="category()">{{posts.category}}</p>
+              </ion-row>
+            </ion-label>
+            <button [routerLink]="['/edit-post', posts.id]">
+              <img src="../assets/icons/edit.png" width="28" height="26">
+            </button>
+            <button (click)="deletePost()">
+              <img src="../assets/icons/delete.png" width="28" height="30">
+            </button>
+          </ion-item>
+        </div>
+        <ng-template #default>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src={{posts.profile_image}}/>
+            </ion-avatar>
+            <ion-label>
+              <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+              <ion-row>
+              <p style="color: #707070;">{{timePosted | date: "dd/MM/yyyy"}}</p>
+              <p style="color: black;">&nbsp;•&nbsp;</p>
+              <p style="color: #FF7A17;" (click)="category()">{{posts.category}}</p>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+        </ng-template>
+      <ion-col>
+      <img src={{posts.post_image}} width="350" height= "250"/>
+      </ion-col>
+      <ion-col>
+            <div style="padding-bottom: 8px; font-size: 17px; padding-left: 8px;">
+            {{posts.post_caption}}
+            </div>
+            <ion-row style="padding-bottom: 8px;">
+              <div *ngIf="isLiked === true; else noLike" style="margin-left: auto; margin-right: auto;">
+                <button (click)="likePost()">
+                  <img src="../assets/icons/heart_filled.png" width="28" height="25">
+                  <div style="text-align: center;">{{likeCount}}</div>
+                </button>
+              </div>
+              <ng-template #noLike>
+                <div style="margin-left: auto; margin-right: auto;">
+                  <button (click)="likePost()">
+                    <img src="../assets/icons/heart.png" width="28" height="25">
+                    <div style="text-align: center;">{{likeCount}}</div>
+                  </button>
+                </div>
+              </ng-template>
+              <div *ngIf="inFavourites; else notFavourite" style="margin-left: auto; margin-right: auto;">
+                  <button (click)="addFavourites()">
+                    <img src="../assets/icons/favourites_filled.png" width="28" height="25">
+                    <div style="text-align: center;">Saved in Favourites</div>
+                  </button>
+                </div>
+                <ng-template #notFavourite>
+                  <div style="margin-left: auto; margin-right: auto;">
+                    <button (click)="addFavourites()">
+                      <img src="../assets/icons/favourites.png" width="28" height="25">
+                      <div style="text-align: center;">Add to Favourites</div>
+                    </button>
+                  </div>
+                </ng-template>
+            </ion-row>
+            <div *ngIf="hasComments; else noComments" style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 11px; width: 362px">
+            <div *ngIf="commentCount === 1; else commentCountMoreThanOne" style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{commentCount}} Comment</div>
+            <ng-template #commentCountMoreThanOne>
+              <div style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{commentCount}} Comments</div>
+            </ng-template>
+            <ion-grid class="comments" style="width: 350px; height:280px">  
+              <ion-card *ngFor="let comment of comments">
+                <div *ngIf="comment.Uid === this.uid; else notUserComment">
+                  <ion-item lines="none">
+                    <ion-avatar slot="start">
+                      <img src={{comment.profile_image}}/>
+                    </ion-avatar>
+                    <ion-label>
+                      <h3>{{comment.profile_name}}</h3>
+                      <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                    </ion-label>
+                    <button (click)="deleteComment(comment.id)">
+                      <img src="../assets/icons/delete_small.png" width="22" height="22">
+                    </button>
+                  </ion-item>
+                  <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.comment}}</div>
+                </div>
+                <ng-template #notUserComment>
+                  <div>
+                    <ion-item lines="none">
+                      <ion-avatar slot="start">
+                        <img src={{comment.profile_image}}/>
+                      </ion-avatar>
+                      <ion-label>
+                        <h3>{{comment.profile_name}}</h3>
+                        <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                      </ion-label>
+                    </ion-item>
+                    <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.comment}}</div>
+                  </div>
+                </ng-template>
+                </ion-card>
+              </ion-grid>
+            </div>
+            <ng-template #noComments>
+              <div style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 11px; width: 362px;">
+              <ion-grid style="width: 350px; height:295px">
+                <div style="text-align: center;">
+                <img src="../assets/images/empty.png" width="270" height='220'>
+                </div>
+                <div style="text-align: center; font-size: 20px; color: #FF7A17;">No comments yet :(</div>
+                <div style="text-align: center; font-size: 15px; color: #707070;">Be the first to comment!</div>
+              </ion-grid>
+              </div>
+            </ng-template>
+            <ion-row style="padding-left: 20px;">
+            <div style="padding-top: 1.5px;">
+                  <ion-item lines="none" class="commentsBox">
+                    <ion-input style="color: white;text-align: center;font-size: 15px; margin-bottom: 10px;" placeholder="Enter Comment" type="text" [(ngModel)]="comment"></ion-input>
+                  </ion-item>
+              </div>
+              <div>
+                  <button (click)="addComment()">
+                    <img src="../assets/icons/comment.png" width="28" height="25">
+                    <div style="text-align: center;">Post Comment</div>
+                  </button>
+              </div>
+            </ion-row>
+      </ion-col>
+    </ion-card>
+  </ion-col>
+  </ion-grid>
+</ion-content>
+
+<!--For Browser-->
+<ng-template #othersHeader>
+  <ion-header>
+    <ion-toolbar>
+      <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+      <button slot="end" style="background-color: #FF7A17; margin-right: 10px;">
+        <ion-menu-button> 
+            <img src='../assets/icons/options_icon.png' width="45" height="30"> 
+        </ion-menu-button> 
+      </button>
+    </ion-toolbar>
+  </ion-header>
+</ng-template>
+
+<ng-template #othersContent>
+  <ion-content>
+    <ion-grid style="width: fit-content; height: fit-content;">
+    <ion-col>
+      <ion-card>
+        <ion-row>
+        <ion-col>
+        <img src={{posts.post_image}} width="800" height= "450"/>
+        </ion-col>
+        <ion-col>
+          <div *ngIf="isUser; else default">
+            <ion-item lines="none">
+                <ion-avatar slot="start">
+                  <img src={{posts.profile_image}}/>
+                </ion-avatar>
+                <ion-label>
+                  <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+                  <ion-row>
+                  <p style="color: #707070;">{{timePosted | date: "dd/MM/yyyy"}}</p>
+                  <p style="color: black;">&nbsp;•&nbsp;</p>
+                  <p style="color: #FF7A17;" (click)="category()">{{posts.category}}</p>
+                  </ion-row>
+                </ion-label>
+                <button [routerLink]="['/edit-post', posts.id]">
+                  <img src="../assets/icons/edit.png" width="28" height="26">
+                </button>
+                <button (click)="deletePost()">
+                  <img src="../assets/icons/delete.png" width="28" height="30">
+                </button>
+              </ion-item>
+            </div>
+            <ng-template #default>
+              <ion-item lines="none">
+                <ion-avatar slot="start">
+                  <img src={{posts.profile_image}}/>
+                </ion-avatar>
+                <ion-label>
+                  <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+                  <ion-row>
+                  <p style="color: #707070;">{{timePosted | date: "dd/MM/yyyy"}}</p>
+                  <p style="color: black;">&nbsp;•&nbsp;</p>
+                  <p style="color: #FF7A17;" (click)="category()">{{posts.category}}</p>
+                  </ion-row>
+                </ion-label>
+              </ion-item>
+            </ng-template>
+              <div style="padding-bottom: 8px; font-size: 17px;">
+              {{posts.post_caption}}
+              </div>
+              <div *ngIf="hasComments; else noComments" style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 11px;">
+              <div *ngIf="commentCount === 1; else commentCountMoreThanOne" style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{commentCount}} Comment</div>
+              <ng-template #commentCountMoreThanOne>
+                <div style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{commentCount}} Comments</div>
+              </ng-template>
+              <ion-grid class="comments" style="width: 580px; height:280px">  
+                <ion-card *ngFor="let comment of comments">
+                  <div *ngIf="comment.Uid === this.uid; else notUserComment">
+                    <ion-item lines="none">
+                      <ion-avatar slot="start">
+                        <img src={{comment.profile_image}}/>
+                      </ion-avatar>
+                      <ion-label>
+                        <h3>{{comment.profile_name}}</h3>
+                        <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                      </ion-label>
+                      <button (click)="deleteComment(comment.id)">
+                        <img src="../assets/icons/delete_small.png" width="22" height="22">
+                      </button>
+                    </ion-item>
+                    <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.comment}}</div>
+                  </div>
+                  <ng-template #notUserComment>
+                    <div>
+                      <ion-item lines="none">
+                        <ion-avatar slot="start">
+                          <img src={{comment.profile_image}}/>
+                        </ion-avatar>
+                        <ion-label>
+                          <h3>{{comment.profile_name}}</h3>
+                          <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                        </ion-label>
+                      </ion-item>
+                      <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.comment}}</div>
+                    </div>
+                  </ng-template>
+                  </ion-card>
+                </ion-grid>
+              </div>
+              <ng-template #noComments>
+                <div style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 11px;">
+                <ion-grid style="width: 580px; height:305px">
+                  <div style="text-align: center;">
+                  <img src="../assets/images/empty.png" width="280" height='230'>
+                  </div>
+                  <div style="text-align: center; font-size: 20px; color: #FF7A17;">No comments yet :(</div>
+                  <div style="text-align: center; font-size: 15px; color: #707070;">Be the first to comment!</div>
+                </ion-grid>
+                </div>
+              </ng-template>
+              <ion-row>
+                <div *ngIf="isLiked === true; else noLike">
+                <ion-col>
+                  <button (click)="likePost()">
+                    <img src="../assets/icons/heart_filled.png" width="28" height="25">
+                    <div style="text-align: center;">{{likeCount}}</div>
+                  </button>
+                </ion-col>
+                </div>
+                <ng-template #noLike>
+                  <div>
+                  <ion-col>
+                    <button (click)="likePost()">
+                      <img src="../assets/icons/heart.png" width="28" height="25">
+                      <div style="text-align: center;">{{likeCount}}</div>
+                    </button>
+                  </ion-col>
+                  </div>
+                </ng-template>
+                <div>
+                    <ion-item lines="none" class="commentsBox">
+                      <ion-input style="color: white;text-align: center;font-size: 15px; margin-bottom: 13.5px;" placeholder="Enter Comment" type="text" [(ngModel)]="comment"></ion-input>
+                    </ion-item>
+                </div>
+                <div>
+                  <ion-col>
+                    <button (click)="addComment()">
+                      <img src="../assets/icons/comment.png" width="28" height="25">
+                      <div style="text-align: center;">Post Comment</div>
+                    </button>
+                  </ion-col>
+                </div>
+                <div *ngIf="inFavourites; else notFavourite" style="margin-left: auto;">
+                  <ion-col>
+                    <button (click)="addFavourites()">
+                      <img src="../assets/icons/favourites_filled.png" width="28" height="25">
+                      <div style="text-align: center;">Saved in Favourites</div>
+                    </button>
+                  </ion-col>
+                  </div>
+                  <ng-template #notFavourite>
+                    <div style="margin-left: auto;">
+                    <ion-col>
+                      <button (click)="addFavourites()">
+                        <img src="../assets/icons/favourites.png" width="28" height="25">
+                        <div style="text-align: center;">Add to Favourites</div>
+                      </button>
+                    </ion-col>
+                    </div>
+                  </ng-template>
+              </ion-row>  
+        </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+    </ion-grid>
+  </ion-content>
+</ng-template>

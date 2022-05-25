@@ -1,0 +1,32 @@
+<ion-content>
+  <img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+  <div *ngIf="postImage; else defaultImage">
+    <img id="post-image" style="display: block;margin-left: auto;margin-right: auto;" [src]="postImage" width="400" height="300" (click)="selectImage()">
+  </div>
+  <ng-template #defaultImage>
+    <img style="display: block;margin-right: auto;margin-left: auto;" src="../assets/icons/post_image.png" width="400" height="300" (click)="selectImage()">
+  </ng-template>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center; margin-top: 20px">Add New Post</div>
+  <ion-list>
+    <ion-item lines="none" class="select">
+    <ion-select placeholder="Post Category" [(ngModel)]="post_category">
+      <ion-label>Select Post Category</ion-label>
+      <ion-select-option value="Sports & Outdoors">Sports & Outdoors</ion-select-option>
+      <ion-select-option value="Arts & Music">Arts & Music</ion-select-option>
+      <ion-select-option value="Pets">Pets</ion-select-option>
+      <ion-select-option value="Games">Games</ion-select-option>
+      <ion-select-option value="Tech">Tech</ion-select-option>
+      <ion-select-option value="Others">Others</ion-select-option>
+    </ion-select>
+    </ion-item>
+    <ion-item lines="none" class="caption">
+      <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Post Caption" [(ngModel)]="post_caption"></ion-input>
+    </ion-item>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button class="add" style="text-transform: none;font-size: 20px;" (click)="addPost()" type="submit" expand="block">Post</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

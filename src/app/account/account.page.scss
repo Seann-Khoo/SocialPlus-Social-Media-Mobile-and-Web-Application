@@ -1,0 +1,28 @@
+ion-item {
+    --background: #707070;
+    width: 250px;
+    height: 48px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 40px;
+    margin-bottom: 8px;
+    box-shadow: none;
+}
+.update {
+    --background: #FF7A17;
+    width: fit-content;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    --border-radius: 40px;
+    box-shadow: none;
+}
+.delete {
+    --background: darkred;
+    width: fit-content;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    --border-radius: 40px;
+    box-shadow: none;
+}

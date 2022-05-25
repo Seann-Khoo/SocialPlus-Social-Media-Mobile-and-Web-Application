@@ -1,0 +1,26 @@
+ion-item {
+  --background: #707070;
+  width: 250px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 40px;
+  margin-bottom: 8px;
+  box-shadow: none;
+}
+ion-input {
+  --placeholder-color: white;
+  --placeholder-opacity: 1;
+}
+.save {
+  --background: #ff7a17;
+  width: fit-content;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  --border-radius: 40px;
+  box-shadow: none;
+}
+ion-avatar{
+  border: 2px solid #ff7a17;
+}

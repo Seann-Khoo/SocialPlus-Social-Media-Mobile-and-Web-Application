@@ -1,0 +1,416 @@
+<ion-header *ngIf="isAndroid; else othersHeader">
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+    <button slot="end" style="background-color: #FF7A17; margin-right: 10px;">
+      <ion-menu-button> 
+          <img src='../assets/icons/options_icon.png' width="45" height="30"> 
+      </ion-menu-button> 
+    </button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isAndroid; else othersContent">
+  <ion-grid style="width: fit-content; height: fit-content;">
+  <ion-col>
+    <ion-card>
+      <div *ngIf="isUser; else default">
+        <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src={{posts.profile_image}}/>
+            </ion-avatar>
+            <ion-label>
+              <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+              <ion-row>
+              <p style="color: #707070;">Listed {{timePosted | date: "dd/MM/yyyy"}}</p>
+              <p style="color: black;">&nbsp;•&nbsp;</p>
+              <p style="color: #707070;">Joined {{dateJoined | date: "dd MMM yyyy"}}</p>
+              </ion-row>
+            </ion-label>
+            <button [routerLink]="['/edit-product', posts.id]">
+              <img src="../assets/icons/edit.png" width="28" height="26">
+            </button>
+            <button (click)="deleteListing()">
+              <img src="../assets/icons/delete.png" width="28" height="30">
+            </button>
+          </ion-item>
+        </div>
+        <ng-template #default>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <img src={{posts.profile_image}}/>
+            </ion-avatar>
+            <ion-label>
+              <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+              <ion-row>
+              <p style="color: #707070;">Listed {{timePosted | date: "dd/MM/yyyy"}}</p>
+              <p style="color: black;">&nbsp;•&nbsp;</p>
+              <p style="color: #707070;">Joined {{dateJoined | date: "dd MMM yyyy"}}</p>
+              </ion-row>
+            </ion-label>
+          </ion-item>
+        </ng-template>
+      <ion-col>
+      <img src={{posts.item_image}} width="350" height="250" />
+      </ion-col>
+      <ion-col>
+            <div style="padding-left: 8px; padding-top: 8px;">
+              <ion-row>
+              <div style="color: #FF7A17; font-size: 15px;">${{posts.item_price}}</div>
+              <div style="color: black; font-size: 15px;">&nbsp;•&nbsp;</div>
+              <div style="color: #FF7A17; font-size: 15px;">{{posts.item_condition}}</div>
+              <div style="color: black; font-size: 15px;">&nbsp;•&nbsp;</div>
+              <div style="color: #FF7A17; font-size: 15px;">Contact: {{posts.seller_contact}}</div>
+              </ion-row>
+            </div>
+            <div style="padding-bottom: 8px; padding-left: 8px; padding-right: 8px;font-size: 17px;">
+              {{posts.item_description}}
+            </div>
+            <div *ngIf="posts.seller_website === null; else sellerWebsite">
+              <ion-row style="padding-bottom: 8px;"> 
+                <div *ngIf="inWishlist; else notFavourite" style="margin-left: auto; margin-right: auto;">
+                    <button (click)="addFavourites()">
+                      <img src="../assets/icons/wishlist_filled.png" width="28" height="25">
+                      <div style="text-align: center;">Saved in Wishlist</div>
+                    </button>
+                  </div>
+                  <ng-template #notFavourite>
+                    <div style="margin-left: auto; margin-right: auto;">
+                      <button (click)="addFavourites()">
+                        <img src="../assets/icons/wishlist.png" width="28" height="25">
+                        <div style="text-align: center;">Add to Wishlist</div>
+                      </button>
+                    </div>
+                  </ng-template>
+                  <div *ngIf="posts.placeId != null" style="margin-left: auto; margin-right: auto;">
+                    <button (click)="openSellerLocation()">
+                      <img src="../assets/icons/marker.png" width="28" height="25">
+                      <div style="text-align: center;">Open Seller Location</div>
+                    </button>
+                </div>
+              </ion-row>
+              </div>
+              <ng-template #sellerWebsite>
+                <ion-row style="padding-bottom: 8px;">
+                  <div style="margin-left: auto; margin-right: auto;">
+                      <button (click)="openSellerWebsite()">
+                        <img src="../assets/icons/globe.png" width="28" height="25">
+                        <div style="text-align: center;">Visit Seller Website</div>
+                      </button>
+                  </div>
+                  <div *ngIf="inWishlist; else notFavourite" style="margin-left: auto; margin-right: auto;">
+                      <button (click)="addFavourites()">
+                        <img src="../assets/icons/wishlist_filled.png" width="28" height="25">
+                        <div style="text-align: center;">Saved in Wishlist</div>
+                      </button>
+                    </div>
+                    <ng-template #notFavourite>
+                      <div style="margin-left: auto; margin-right: auto;">
+                        <button (click)="addFavourites()">
+                          <img src="../assets/icons/wishlist.png" width="28" height="25">
+                          <div style="text-align: center;">Add to Wishlist</div>
+                        </button>
+                      </div>
+                    </ng-template>
+                  <div *ngIf="posts.placeId != null" style="margin-left: auto; margin-right: auto;">
+                      <button (click)="openSellerLocation()">
+                        <img src="../assets/icons/marker.png" width="28" height="25">
+                        <div style="text-align: center;">Open Seller Location</div>
+                      </button>
+                  </div>
+                </ion-row>
+              </ng-template>
+            <div *ngIf="hasRequests; else noRequests" style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 8px; width: 362px">
+            <div *ngIf="requestCount === 1; else requestCountMoreThanOne" style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{requestCount}} Offer</div>
+            <ng-template #requestCountMoreThanOne>
+              <div style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{requestCount}} Offers</div>
+            </ng-template>
+            <ion-grid class="comments" style="width: 350px; height:260px">  
+              <ion-card *ngFor="let comment of requests">
+                <div *ngIf="comment.Uid === this.uid; else notUserComment">
+                  <ion-item lines="none">
+                    <ion-avatar slot="start">
+                      <img src={{comment.profile_image}}/>
+                    </ion-avatar>
+                    <ion-label>
+                      <h3>{{comment.profile_name}}</h3>
+                      <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                    </ion-label>
+                    <button (click)="deleteRequest(comment.id)">
+                      <img src="../assets/icons/delete_small.png" width="22" height="22">
+                    </button>
+                  </ion-item>
+                  <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.request}}</div>
+                </div>
+                <ng-template #notUserComment>
+                  <div>
+                    <ion-item lines="none">
+                      <ion-avatar slot="start">
+                        <img src={{comment.profile_image}}/>
+                      </ion-avatar>
+                      <ion-label>
+                        <h3>{{comment.profile_name}}</h3>
+                        <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                      </ion-label>
+                    </ion-item>
+                    <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.request}}</div>
+                  </div>
+                </ng-template>
+                </ion-card>
+              </ion-grid>
+            </div>
+            <ng-template #noRequests>
+              <div style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 8px; width: 362px">
+                <ion-grid style="width: 350px; height:285px">
+                  <div style="text-align: center;">
+                  <img src="../assets/images/empty.png" width="270" height='220'>
+                  </div>
+                  <div style="text-align: center; font-size: 20px; color: #FF7A17;">No offers yet :(</div>
+                  <div style="text-align: center; font-size: 15px; color: #707070;">Be the first to make an offer!</div>
+                </ion-grid>
+              </div>
+            </ng-template>
+            <ion-row style="padding-left: 20px;">
+              <div style="padding-top: 1.5px;">
+                  <ion-item lines="none" class="commentsBox">
+                    <ion-input style="color: white;text-align: center;font-size: 15px; margin-bottom: 10px;" placeholder="Make Offer" type="text" [(ngModel)]="request"></ion-input>
+                  </ion-item>
+              </div>
+              <div>
+                  <button (click)="addRequest()">
+                    <img src="../assets/icons/offer.png" width="28" height="25">
+                    <div style="text-align: center;">Make Offer</div>
+                  </button>
+              </div>
+            </ion-row>
+      </ion-col>
+    </ion-card>
+  </ion-col>
+  </ion-grid>
+</ion-content>
+
+<!--For Browser-->
+<ng-template #othersHeader>
+<ion-header>
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+    <button slot="end" style="background-color: #FF7A17; margin-right: 10px;">
+      <ion-menu-button> 
+          <img src='../assets/icons/options_icon.png' width="45" height="30"> 
+      </ion-menu-button> 
+    </button>
+  </ion-toolbar>
+</ion-header>
+</ng-template>
+
+<ng-template #othersContent>
+<ion-content>
+  <ion-grid style="width: fit-content; height: fit-content;">
+  <ion-col>
+    <ion-card>
+      <ion-row>
+      <ion-col>
+      <img src={{posts.item_image}} width="800" height="450" />
+      </ion-col>
+      <ion-col>
+        <div *ngIf="isUser; else default">
+          <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src={{posts.profile_image}}/>
+              </ion-avatar>
+              <ion-label>
+                <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+                <ion-row>
+                <p style="color: #707070;">Listed {{timePosted | date: "dd/MM/yyyy"}}</p>
+                <p style="color: black;">&nbsp;•&nbsp;</p>
+                <p style="color: #707070;">Joined {{dateJoined | date: "dd MMM yyyy"}}</p>
+                <p style="color: black;">&nbsp;•&nbsp;</p>
+                <p style="color: #FF7A17;">Contact: {{posts.seller_contact}}</p>
+                </ion-row>
+              </ion-label>
+              <button [routerLink]="['/edit-product', posts.id]">
+                <img src="../assets/icons/edit.png" width="28" height="26">
+              </button>
+              <button (click)="deleteListing()">
+                <img src="../assets/icons/delete.png" width="28" height="30">
+              </button>
+            </ion-item>
+          </div>
+          <ng-template #default>
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src={{posts.profile_image}}/>
+              </ion-avatar>
+              <ion-label>
+                <h3 (click)="postUser()">{{posts.profile_name}}</h3>
+                <ion-row>
+                <p style="color: #707070;">Listed {{timePosted | date: "dd/MM/yyyy"}}</p>
+                <p style="color: black;">&nbsp;•&nbsp;</p>
+                <p style="color: #707070;">Joined {{dateJoined | date: "dd MMM yyyy"}}</p>
+                <p style="color: black;">&nbsp;•&nbsp;</p>
+                <p style="color: #FF7A17;">Contact: {{posts.seller_contact}}</p>
+                </ion-row>
+              </ion-label>
+            </ion-item>
+          </ng-template>
+            <div>
+              <ion-row>
+              <div style="color: #FF7A17; font-size: 20px;">${{posts.item_price}}</div>
+              <div style="color: black; font-size: 20px;">&nbsp;•&nbsp;</div>
+              <div style="color: #FF7A17; font-size: 20px;">{{posts.item_condition}}</div>
+              </ion-row>
+            </div>
+            <div style="padding-bottom: 8px; font-size: 17px;">
+              {{posts.item_description}}
+            </div>
+            <div *ngIf="hasRequests; else noRequests" style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 8px;">
+            <div *ngIf="requestCount === 1; else requestCountMoreThanOne" style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{requestCount}} Offer</div>
+            <ng-template #requestCountMoreThanOne>
+              <div style="font-size: 17px; color: black; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;">{{requestCount}} Offers</div>
+            </ng-template>
+            <ion-grid class="comments" style="width: 580px; height:258px">  
+              <ion-card *ngFor="let comment of requests">
+                <div *ngIf="comment.Uid === this.uid; else notUserComment">
+                  <ion-item lines="none">
+                    <ion-avatar slot="start">
+                      <img src={{comment.profile_image}}/>
+                    </ion-avatar>
+                    <ion-label>
+                      <h3>{{comment.profile_name}}</h3>
+                      <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                    </ion-label>
+                    <button (click)="deleteRequest(comment.id)">
+                      <img src="../assets/icons/delete_small.png" width="22" height="22">
+                    </button>
+                  </ion-item>
+                  <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.request}}</div>
+                </div>
+                <ng-template #notUserComment>
+                  <div>
+                    <ion-item lines="none">
+                      <ion-avatar slot="start">
+                        <img src={{comment.profile_image}}/>
+                      </ion-avatar>
+                      <ion-label>
+                        <h3>{{comment.profile_name}}</h3>
+                        <p>{{comment.time_posted.toDate() | date: "dd/MM/yyyy"}}</p>
+                      </ion-label>
+                    </ion-item>
+                    <div style="color: #707070; font-size: 14px; padding-left: 8px; padding-bottom: 8px; padding-right: 8px;">{{comment.request}}</div>
+                  </div>
+                </ng-template>
+                </ion-card>
+              </ion-grid>
+            </div>
+            <ng-template #noRequests>
+              <div style="border:1.5px solid; border-radius: 10px;border-color: #707070; margin-bottom: 8px;">
+                <ion-grid style="width: 580px; height:283px">
+                  <div style="text-align: center;">
+                  <img src="../assets/images/empty.png" width="270" height='220'>
+                  </div>
+                  <div style="text-align: center; font-size: 20px; color: #FF7A17;">No offers yet :(</div>
+                  <div style="text-align: center; font-size: 15px; color: #707070;">Be the first to make an offer!</div>
+                </ion-grid>
+              </div>
+            </ng-template>
+            <div *ngIf="posts.seller_website === null; else sellerWebsite">
+            <ion-row>
+              <div>
+                  <ion-item lines="none" class="commentsBox">
+                    <ion-input style="color: white;text-align: center;font-size: 15px; margin-bottom: 13.5px;" placeholder="Make Offer" type="text" [(ngModel)]="request"></ion-input>
+                  </ion-item>
+              </div>
+              <div>
+                <ion-col>
+                  <button (click)="addRequest()">
+                    <img src="../assets/icons/offer.png" width="28" height="25">
+                    <div style="text-align: center;">Make Offer</div>
+                  </button>
+                </ion-col>
+              </div>
+              <div *ngIf="posts.placeId != null">
+                <ion-col>
+                  <button (click)="openSellerLocation()">
+                    <img src="../assets/icons/marker.png" width="28" height="25">
+                    <div style="text-align: center;">Open Seller Location</div>
+                  </button>
+                </ion-col>
+              </div>
+              <div *ngIf="inWishlist; else notFavourite">
+                <ion-col>
+                  <button (click)="addFavourites()">
+                    <img src="../assets/icons/wishlist_filled.png" width="28" height="25">
+                    <div style="text-align: center;">Saved in Wishlist</div>
+                  </button>
+                </ion-col>
+                </div>
+                <ng-template #notFavourite>
+                  <div>
+                  <ion-col>
+                    <button (click)="addFavourites()">
+                      <img src="../assets/icons/wishlist.png" width="28" height="25">
+                      <div style="text-align: center;">Add to Wishlist</div>
+                    </button>
+                  </ion-col>
+                  </div>
+                </ng-template>
+            </ion-row>
+            </div>
+            <ng-template #sellerWebsite>
+              <ion-row>
+                <div>
+                    <ion-item lines="none" class="commentsBox">
+                      <ion-input style="color: white;text-align: center;font-size: 15px; margin-bottom: 13.5px;" placeholder="Make Offer" type="text" [(ngModel)]="request"></ion-input>
+                    </ion-item>
+                </div>
+                <div>
+                  <ion-col>
+                    <button (click)="addRequest()">
+                      <img src="../assets/icons/offer.png" width="28" height="25">
+                      <div style="text-align: center;">Make Offer</div>
+                    </button>
+                  </ion-col>
+                </div>
+                <div>
+                  <ion-col>
+                    <button (click)="openSellerWebsite()">
+                      <img src="../assets/icons/globe.png" width="28" height="25">
+                      <div style="text-align: center;">Visit Seller Website</div>
+                    </button>
+                  </ion-col>
+                </div>
+                <div *ngIf="posts.placeId != null">
+                  <ion-col>
+                    <button (click)="openSellerLocation()">
+                      <img src="../assets/icons/marker.png" width="28" height="25">
+                      <div style="text-align: center;">Open Seller Location</div>
+                    </button>
+                  </ion-col>
+                </div>
+                <div *ngIf="inWishlist; else notFavourite">
+                  <ion-col>
+                    <button (click)="addFavourites()">
+                      <img src="../assets/icons/wishlist_filled.png" width="28" height="25">
+                      <div style="text-align: center;">Saved in Wishlist</div>
+                    </button>
+                  </ion-col>
+                  </div>
+                  <ng-template #notFavourite>
+                    <div>
+                    <ion-col>
+                      <button (click)="addFavourites()">
+                        <img src="../assets/icons/wishlist.png" width="28" height="25">
+                        <div style="text-align: center;">Add to Wishlist</div>
+                      </button>
+                    </ion-col>
+                    </div>
+                  </ng-template>
+              </ion-row>
+            </ng-template>
+      </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-col>
+  </ion-grid>
+</ion-content>
+</ng-template>
+

@@ -1,0 +1,38 @@
+<ion-content>
+  <img style="display: block;margin-right: auto;margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;" width="218" height="195" src="../assets/images/registration_image.png">
+  <div style="color: #FF7A17;font-size: 25px;text-align: center;">Get your</div>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center; margin-bottom: 20px;">imagination flowing...</div>
+  <ion-list>
+    <ion-item lines="none">
+      <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Email Address" [(ngModel)]="registerEmail"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Password" [(ngModel)]="registerPassword"></ion-input>
+    </ion-item>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button style="text-transform: none;font-size: 20px;" (click)="register()" type="submit" expand="block">Register</ion-button>
+        <br>
+        <ion-row>
+          <ion-col>
+          <div style="text-align: center;">
+            <a style="color: #707070;text-decoration: none;font-size: 13px;" [routerLink]="['/login']">Login with Email Address</a>
+          </div>
+          </ion-col>
+          <ion-col>
+          <div style="text-align: center;">
+            <a style="color: #707070;text-decoration: none;font-size: 13px;" [routerLink]="['/phone-login']">Login with Mobile Number</a>
+          </div>
+          </ion-col>
+          <ion-col *ngIf="isAndroid">
+            <div style="text-align: center;">
+              <a style="color: #707070;text-decoration: none;font-size: 13px;" [routerLink]="['/phone-register']">Register with Mobile Number</a>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

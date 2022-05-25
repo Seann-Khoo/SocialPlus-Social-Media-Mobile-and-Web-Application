@@ -1,0 +1,29 @@
+<ion-content>
+  <img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;" width="230" height="207" src="../assets/images/feedback_image.png">
+  <br>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center;">User Experience Feedback</div>
+  <ion-list>
+    <ion-item lines="none" class="select">
+    <ion-select placeholder="Category" [(ngModel)]="category">
+      <ion-label>Select Feedback Category</ion-label>
+      <ion-select-option value="General Feedback">General Feedback</ion-select-option>
+      <ion-select-option value="Bugs Reporting">Bugs Reporting</ion-select-option>
+      <ion-select-option value="Features Suggestion">Features Suggestion</ion-select-option>
+    </ion-select>
+    </ion-item>
+    <ion-item lines="none" class="feedback">
+      <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Feedback" [(ngModel)]="feedback"></ion-input>
+    </ion-item>
+    <br>
+    <div style="color: #FF7A17;font-size: 15px;text-align: center;">Your feedback will always remain anonymous.</div>
+    <div style="color: #FF7A17;font-size: 15px;text-align: center;">That's our promise.</div>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button style="text-transform: none;font-size: 20px;" (click)="sendFeedback()" type="submit" expand="block">Send</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
+

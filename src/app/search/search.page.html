@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+    <button slot="end" style="background-color: #FF7A17; margin-right: 10px;">
+    <ion-menu-button> 
+        <img src='../assets/icons/options_icon.png' width="45" height="30"> 
+    </ion-menu-button> 
+  </button>
+  </ion-toolbar>
+</ion-header>
+
+<div slot="fixed" style="padding-bottom:5px; padding-top: 5px;">
+  <ion-row>
+   <ion-searchbar placeholder="Search for Social+ User Posts" [(ngModel)]="searchItem" (ngModelChange)="search()" ></ion-searchbar>
+  </ion-row>
+  <div *ngIf="postCount != null; else noResult" style="text-align: center; font-size: 15px;">Showing {{postCount}} Results For "{{searchItem}}"</div>
+  <ng-template #noResult>
+    <div style="text-align: center; font-size: 15px;"></div>
+  </ng-template>
+</div>
+
+<ion-content>
+  <div *ngIf="postCount != null; else noSearch">
+  <div *ngIf="hasPosts; else noPosts">
+    <ion-row>
+      <ion-card
+        *ngFor="let post of posts"
+        [routerLink]="['/post-individual', post.id]"
+      >
+        <img
+          style="display: block"
+          src="{{post.post_image}}"
+          width="400"
+          height="300"
+        />
+      </ion-card>
+    </ion-row>
+  </div>
+  </div>
+  <ng-template #noPosts>
+    <div style="text-align: center;">
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <img src="../assets/images/empty.png" width="300" height="277">
+      <div style="font-size: 40px; color: #FF7A17;">No results :(</div>
+      <div style="font-size: 35px; color: #707070;">Try again or search for something else.</div>
+    </div>
+  </ng-template>
+  <ng-template #noSearch>
+    <div style="text-align: center;">
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <img src="../assets/images/search.png" width="300" height="277">
+      <div style="font-size: 40px; color: #FF7A17;">Social+ Search</div>
+      <div style="font-size: 35px; color: #707070;">Start searching for the things you love.</div>
+    </div>
+  </ng-template>
+
+</ion-content>

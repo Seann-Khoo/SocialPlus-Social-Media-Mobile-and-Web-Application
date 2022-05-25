@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+  </ion-toolbar>
+</ion-header>
+
+<div slot="fixed" style="padding-bottom:5px; padding-top: 5px; border-bottom: 1.5px solid lightgray">
+  <ion-row>
+    <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Search For a Location"  (ionClear)="ClearAutocomplete()"></ion-searchbar>
+  </ion-row>
+  <div *ngIf="locationName != null; else noLocation" style="text-align: center; font-size: 17px; color: #FF7A17; padding-top: 5px;">Selected Location: {{locationName}}</div>
+  <ng-template #noLocation>
+    <div style="text-align: center; font-size: 17px; padding-top: 5px; color: #FF7A17">No Selected Location Yet</div>
+  </ng-template>
+</div>
+
+<ion-content>
+  <div *ngIf="hasResults" style="font-size: 17px; padding-top: 8px; padding-left: 8px;">Showing All Results for "{{autocomplete.input}}"</div>
+  <ion-list [hidden]="autocompleteItems.length == 0" *ngIf="hasResults; else noResults">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item)" lines="full">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer style="position: absolute; bottom: 0px; width: 100%; padding-top: 8px; padding-bottom: 8px; border-top: 1.5px solid lightgray;">
+  <ion-row>
+    <ion-button class="save" (click)="save()">Save Location</ion-button>
+    <ion-button class="close" (click)="close()">Cancel</ion-button>
+  </ion-row>
+</ion-footer>
+
+<ng-template #noResults>
+  <div style="text-align: center;">
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <img src="../assets/images/search.png" width="230" height="208">
+    <div style="font-size: 27px; color: #FF7A17;">Location Search</div>
+    <div style="font-size: 22px; color: #707070;">Start searching for a location.</div>
+  </div>
+</ng-template>

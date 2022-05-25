@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+  </ion-toolbar>
+</ion-header>
+
+<div slot="fixed" style="padding-bottom:5px; padding-top: 5px;">
+  <ion-label style="margin-left: 8px; font-size: 30px">Select Post Option</ion-label>
+</div>
+
+<ion-content>
+  <br>
+  <ion-grid>
+    <ion-card [routerLink]="['/add-post']">
+      <img class="image" src="../assets/images/post_image.png" />
+      <div class="card-title">Social+ Social Feed Post</div>
+      <br />
+    </ion-card>
+    <ion-card [routerLink]="['/add-product']">
+      <img class="image" src="../assets/images/listing_image.png" />
+      <div class="card-title">Social+ Marketplace Listing</div>
+      <br />
+    </ion-card>
+  </ion-grid>
+</ion-content>
+

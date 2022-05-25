@@ -1,0 +1,32 @@
+ion-toolbar {
+  --background: #ff7a17;
+}
+
+ion-item {
+  --background: #707070;
+  width: 250px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 40px;
+  margin-bottom: 8px;
+  box-shadow: none;
+}
+ion-input{
+  --placeholder-color: white;
+  --placeholder-opacity: 1;
+}
+
+ion-card {
+  border-radius: 10px;
+}
+
+ion-card-content {
+  max-width: fit-content;
+}
+
+ion-searchbar{
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+}

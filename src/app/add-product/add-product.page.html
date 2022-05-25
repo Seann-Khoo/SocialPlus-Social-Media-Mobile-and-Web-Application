@@ -1,0 +1,46 @@
+<img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+<div slot="fixed">
+<div *ngIf="postImage; else defaultImage">
+  <img id="product-image" style="display: block;margin-left: auto;margin-right: auto;" [src]="postImage" width="400" height="300" (click)="selectImage()">
+</div>
+<ng-template #defaultImage>
+  <img style="display: block;margin-right: auto;margin-left: auto;" src="../assets/icons/post_image.png" width="400" height="300" (click)="selectImage()">
+</ng-template>
+</div>
+
+<ion-content>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center; margin-top: 20px;">Add New Listing</div>
+  <ion-list style="text-align: center;">
+    <ion-item lines="none" class="select">
+      <ion-select placeholder="Condition" [(ngModel)]="item_condition">
+        <ion-label>Select Item Condition</ion-label>
+        <ion-select-option value="New">New</ion-select-option>
+        <ion-select-option value="Pre-Owned">Pre-Owned</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-item lines="none" class="option" style="margin-bottom: 8px;">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Product Description" [(ngModel)]="item_description"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="option" style="margin-bottom: 8px;">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Product Price (SGD)" [(ngModel)]="item_price"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="option" style="margin-bottom: 8px;">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Seller Contact Number" [(ngModel)]="seller_contact"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="option" style="margin-bottom: 8px;"> 
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Seller Website" [(ngModel)]="seller_website"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="option" *ngIf="haveLocation; else noLocation" (click)="launchLocationPage()">
+        <div style="text-align: center; color: white; font-size: 17px;">{{location}}</div>
+      </ion-item>
+      <ng-template #noLocation>
+      <ion-button class="location" (click)="launchLocationPage()">Location (Optional)</ion-button>
+      </ng-template>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button class="add" style="text-transform: none;font-size: 20px;" (click)="addProduct()" type="submit" expand="block">Post</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>

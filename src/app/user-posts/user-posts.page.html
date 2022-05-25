@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <img slot="start" width="135" height="45" src="../assets/logo/logo_white.png"/>
+    <button slot="end" style="background-color: #FF7A17; margin-right: 10px;">
+    <ion-menu-button> 
+        <img src='../assets/icons/options_icon.png' width="45" height="30"> 
+    </ion-menu-button> 
+  </button>
+  </ion-toolbar>
+</ion-header>
+
+<div slot="fixed" style="padding-bottom:5px; padding-top: 5px;">
+  <ion-row>
+  <ion-item lines="none" style="margin-left: auto; margin-right: auto;">
+    <ion-avatar slot="start" style="width: 100px; height: 100px; border: 2px solid #FF7A17">
+      <img src={{profile.profile_image}}/>
+    </ion-avatar>
+    <ion-label>
+      <h3 style="font-size: 30px;">{{profile.profile_name}}</h3>
+      <ion-row>
+        <ion-col>
+          <div style="font-size: 25px; text-align: center; color: #FF7A17;">{{postCount}}</div>
+          <div style="font-size: 20px; text-align: center;">Posts</div>
+        </ion-col>
+        <ion-col>
+          <div style="font-size: 25px; text-align: center; color: #FF7A17;">{{dateJoined | date: "dd MMM yyyy"}}</div>
+          <div style="font-size: 20px; text-align: center;">Joined</div>
+        </ion-col>
+      </ion-row>
+    </ion-label>
+  </ion-item>
+</ion-row>
+</div>
+
+<ion-content>
+    <ion-row>
+      <ion-card
+        *ngFor="let post of posts"
+        [routerLink]="['/post-individual', post.id]"
+      >
+        <img
+          style="display: block"
+          src="{{post.post_image}}"
+          width="400"
+          height="300"
+        />
+      </ion-card>
+    </ion-row>
+  
+  <ion-fab style="margin-right: 20px; margin-bottom: 5px;" vertical="bottom" horizontal="end" slot="fixed" [routerLink]="['/post-option']">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

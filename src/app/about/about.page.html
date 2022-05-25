@@ -1,0 +1,47 @@
+<ion-content *ngIf="isAndroid; else others">
+  <img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+  <img style="display: block;margin-left: auto;margin-right: auto;" width="230" height="207" src="../assets/images/about_image.png">
+  <br>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center;">About Social+</div>
+  <br>
+  <div style="color: #707070;font-size: 20px;text-align: center;">Post,</div>
+  <div style="color: #707070;font-size: 20px;text-align: center;">Like,</div>
+  <div style="color: #707070;font-size: 20px;text-align: center;">and Comment.</div>
+  <br>
+  <div style="color: #707070;font-size: 20px;text-align: center;">3 basic features,</div>
+  <div style="color: #707070;font-size: 20px;text-align: center;">hours of interaction.</div>
+  <br><br><br><br><br><br>
+  <ion-list>
+    <div style="text-align: center;">
+      <ion-label style="color: #FF7A17;text-decoration: none;font-size: 13px;" [routerLink]="['/feedback']">Provide Feedback</ion-label>
+    </div>
+    <div style="text-align: center;">
+      <ion-label style="color: #707070;text-decoration: none;font-size: 13px;">Social+ Social Media App (Ionic) Version 1.0</ion-label>
+    </div>
+  </ion-list>
+</ion-content>
+
+<ng-template #others>
+  <ion-content>
+    <img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+    <img style="display: block;margin-left: auto;margin-right: auto;" width="230" height="207" src="../assets/images/about_image.png">
+    <br>
+    <div style="color: #FF7A17;font-size: 25px;text-align: center;">About Social+</div>
+    <br>
+    <div style="color: #707070;font-size: 20px;text-align: center;">Post,</div>
+    <div style="color: #707070;font-size: 20px;text-align: center;">Like,</div>
+    <div style="color: #707070;font-size: 20px;text-align: center;">and Comment.</div>
+    <br>
+    <div style="color: #707070;font-size: 20px;text-align: center;">3 basic features,</div>
+    <div style="color: #707070;font-size: 20px;text-align: center;">hours of interaction.</div>
+    <br><br><br>
+    <ion-list>
+      <div style="text-align: center;">
+        <ion-label style="color: #FF7A17;text-decoration: none;font-size: 13px;" [routerLink]="['/feedback']">Provide Feedback</ion-label>
+      </div>
+      <div style="text-align: center;">
+        <ion-label style="color: #707070;text-decoration: none;font-size: 13px;">Social+ Social Media App (Ionic) Version 1.0</ion-label>
+      </div>
+    </ion-list>
+  </ion-content>
+</ng-template>

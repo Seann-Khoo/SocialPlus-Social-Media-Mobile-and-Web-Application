@@ -1,0 +1,53 @@
+<img style="display: block;margin-right: auto; margin-top: 5px;" width="90" height="30" src="../assets/logo/logo.png">
+<div slot="fixed" *ngIf="isAndroid; else otherDevices">
+<div *ngIf="postImage; else defaultImage">
+  <img id="new-image" style="display: block;margin-left: auto;margin-right: auto;" [src]="postImage" width="400" height="300" (click)="selectImage()">
+</div>
+<ng-template #defaultImage>
+  <img style="display: block;margin-right: auto;margin-left: auto;" [src]="post_image" width="400" height="300" (click)="selectImage()">
+</ng-template>
+</div>
+
+<ng-template #otherDevices>
+  <div *ngIf="postImage; else defaultImage">
+    <img id="image" style="display: block;margin-left: auto;margin-right: auto;" [src]="postImage" width="400" height="300">
+  </div>
+  <ng-template #defaultImage>
+    <img style="display: block;margin-right: auto;margin-left: auto;" src="../assets/icons/post_image.png" width="400" height="300">
+  </ng-template>
+</ng-template>
+
+<ion-content>
+  <div style="color: #FF7A17;font-size: 25px;text-align: center; margin-top: 20px;">Edit Listing</div>
+  <ion-list>
+    <div style="text-align: center;font-size: 20px; color: #707070;">{{item_condition}}</div>
+    <br>
+      <ion-item lines="none" class="option">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" value={{item_description}} [(ngModel)]="item_description"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="option">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" value={{item_price}} [(ngModel)]="item_price"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="option">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" value={{seller_contact}} [(ngModel)]="seller_contact"></ion-input>
+      </ion-item>
+    <div *ngIf="seller_website === null; else sellerWebsite">
+      <ion-item lines="none" class="option">
+        <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" placeholder="Seller Website" [(ngModel)]="seller_website"></ion-input>
+      </ion-item>
+    </div>
+    <ng-template #sellerWebsite>
+      <div>
+          <ion-item lines="none" class="option">
+            <ion-input style="color: white;text-align: center;font-size: 17px;" type="text" value={{seller_website}} [(ngModel)]="seller_website"></ion-input>
+          </ion-item>
+      </div>
+    </ng-template>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button class="update" style="text-transform: none;font-size: 20px;" (click)="updateProduct()" type="submit" expand="block">Edit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
