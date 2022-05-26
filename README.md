@@ -29,6 +29,6 @@ convenient online mobile sharing platform with only 3 basic features – Post, L
  <h5>Primary Font:<br>
   <ul><li>Product Sans</li></ul></h5>
   
-  <h5>Link to Video Demonstration:<a><href=https://youtu.be/hH4vrub9DVY></a></h5>
+  <h5>Link to Video Demonstration:<a href=https://youtu.be/hH4vrub9DVY>https://youtu.be/hH4vrub9DVY</a></h5>
 
 <h6>© 2021, Seann Khoo</h6>
