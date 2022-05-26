@@ -1,6 +1,6 @@
 <h3>Social+ Social Media Mobile and Web Application</h3>
 
-<h4>Developed as part of the Individual Assignment under the Mobile App Development (MBAP) module, Social+ Social Media App was conceived as a safe and
+<h4>Developed as part of a School Project, Social+ Social Media App was conceived as a safe and
 convenient online mobile sharing platform with only 3 basic features – Post, Like and Comment, enabling Temasek Polytechnic students to showcase their talents or experiences or hobbies through User Posts as well as interact with other students using the Like and Comment features. Most importantly of all, Social+ would also serve as an avenue where students were recognised for their own uniqueness and creativity and as a platform, help to promote their talents or interests to the wider online community to bring the world closer together, one User Post at a time.</h4>
 
 <h5>Available Versions:<br>
