@@ -29,4 +29,4 @@ convenient online mobile sharing platform with only 3 basic features – Post, L
  <h5>Primary Font:<br>
   <ul><li>Product Sans</li></ul></h5>
 
-<h6>© 2022, Seann Khoo</h6>
+<h6>© 2021, Seann Khoo</h6>
